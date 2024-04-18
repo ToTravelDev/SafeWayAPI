@@ -1,14 +1,12 @@
 import Motorista from "./../../services/motorista/MotoristaClass.js";
-import MotoristaModel from "./../../model/MotoristaModel.js";
-const model = new MotoristaModel()
-
+const controller = new Motorista();
 class MotoristaService extends Motorista
 {
     /**
      * Serviço de listagem de motoristas
      */
     async index(req, res) {
-        const result = await model.getAll()
+        const result = await controller.getAll()
         
         res.json(result.rows);
     }
@@ -19,15 +17,11 @@ class MotoristaService extends Motorista
      * @param {} res 
      */
     async store(req, res) {
-        try {
-            if(!req.params.id){ // => se NÃO for enviado o id, será realizada a inserção do motorista
-                const response = Motorista.insert(req.body)
-                res.status(201).json(response)
-            } else {
-                res.send(`Atualização do motorista id: ${req.params.id}`)
-            }
-        } catch (err) {
-            res.status(500).json(err)
+        if(!req.params.id){ // => se NÃO for enviado o id, será realizada a inserção do motorista
+            const response = await controller.insert(req.body)
+            res.status(201).json(response)
+        } else {
+            res.send(`Atualização do motorista id: ${req.params.id}`)
         }
     }
 

@@ -1,4 +1,5 @@
-
+import MotoristaModel from "../../model/MotoristaModel.js"
+const model = new MotoristaModel();
 class Motorista
 {
 
@@ -7,11 +8,11 @@ class Motorista
         return await model.getAll()
     }
     
-    insert(data)
+    async insert(data)
     {
         // TODO: Tratar dados e inserir novo registro
         this.#setData(data.motorista);
-        let msg = this.#save();
+        let msg = await this.#save();
         return msg;
     }
 
@@ -36,17 +37,20 @@ class Motorista
         }
     }
 
-    #save()
+    async #save()
     {
         if(this.mot_id) {
             return "Update do id: " + mot_id
         } else {
             try{
-                let query = "insert into motorista()"
+                // inserção
+                const res = await model.save({"cadastro": this.cadastro, "endereco": this.endereco});
+
+                return {"message": res.command, res};
             }catch(err){
-                return err
+                console.error(err)
+                return (err)
             }
-            return "insersão de novo motorista"
         }
     }
 
