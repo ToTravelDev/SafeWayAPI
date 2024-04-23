@@ -71,3 +71,6 @@ create table grupo_viagem_integrantes(
     CONSTRAINT identificacao_viagem_fk FOREIGN KEY (vg_id) REFERENCES grupo_viagem(vg_id),
     CONSTRAINT identificacao_aluno_fk FOREIGN KEY (vg_int_usu_id) REFERENCES usuario(usu_id)
 );
+
+create type turno as ENUM('manha', 'tarde');
+alter table viagem add column vg_turno turno;
