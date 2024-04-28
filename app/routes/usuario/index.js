@@ -1,17 +1,9 @@
-import { Router } from "express";
-import UsuarioService from "./../../services/usuario/index.js";
+const express = require("express");
+const UsuarioService = require("./../../services/usuario/index.js");
 
-export default class UsuarioRoutes
-{
-    router = Router()
+const UsuarioRoutes = express.Router();
 
-    constructor()
-    {
-        this.initRoutes();
-    }
+UsuarioRoutes.get('/', UsuarioService.index)
+UsuarioRoutes.post('/store', UsuarioService.store)
 
-    initRoutes()
-    {
-        this.router.get('/', UsuarioService.index )
-    }
-}
+module.exports = UsuarioRoutes;

@@ -1,9 +1,9 @@
 {
-  "name": "to_school",
+  "name": "SafeWay",
   "version": "1.0.0",
   "description": "API responsável pelo gerenciamento da aplicação de controle de viagens escolares",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js localhost"

@@ -1,9 +1,24 @@
-import UsuarioController from "../../controller/usuario/index.js";
+const UsuarioController = require("../../controller/usuario/index.js");
+const usuarioController = new UsuarioController();
 
-export default class UsuarioService extends UsuarioController
-{
-    index(req, res)
+module.exports = {
+    async index(req, res)
     {
-        res.status(200).json(this.getIndexUsers());
+        
+        let result = usuarioController.getIndexUsers();
+        res.send(result).status(200);
+    },
+
+    async store(req, res)
+    {
+        try{
+            const id = req.params.id || undefined;
+            usuarioController.setParametros(req.params.id, req.body);
+            let response = await usuarioController.setInsertUpdate();
+            res.json(response)
+        }catch(error){
+            console.error(error)
+            res.send('Internal server error').status(500);
+        }
     }
 }
