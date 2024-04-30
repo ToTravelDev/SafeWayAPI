@@ -6,7 +6,7 @@ module.exports = {
     {
         
         let result = usuarioController.getIndexUsers();
-        res.send(result).status(200);
+        res.json(result).status(200);
     },
 
     async store(req, res)

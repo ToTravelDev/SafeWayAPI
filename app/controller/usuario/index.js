@@ -4,7 +4,8 @@ class UsuarioController extends BaseController
 {
     getIndexUsers()
     {
-        return this.params;
+        const usuario = new Usuario();
+        return usuario.findAll();
     }
 
     async setInsertUpdate()
@@ -22,6 +23,13 @@ class UsuarioController extends BaseController
             usuario.usuarioLogin = {}
             usuario.usuarioLogin.usu_email = this.params.login.email
             usuario.usuarioLogin.usu_senha = this.params.login.senha
+
+            // definindo parametros de endereço
+            usuario.usuarioEndereco = {}
+            usuario.usuarioEndereco.cep = this.params.usuarioEndereco.cep
+            usuario.usuarioEndereco.rua = this.params.usuarioEndereco.rua
+            usuario.usuarioEndereco.numero = this.params.usuarioEndereco.numero
+            usuario.usuarioEndereco.complemento = this.params.usuarioEndereco.complemento
 
             let response = await usuario.save();
             

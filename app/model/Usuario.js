@@ -47,8 +47,27 @@ class UsuarioModel
         
         let valuesLogin = [this.usuarioLogin.usu_email, this.usuarioLogin.usu_senha, '1', usu_id];
         await db.query(sqlLogin, valuesLogin)
+
+        let sqlEndereco = `INSERT INTO usuario_endereco
+            (usu_id, usu_end_rua, usu_end_numero, usu_end_complemento, usu_end_cep)
+            VALUES
+            ($1, $2, $3, $4, $5)`;
+        let valuesEndereco = [usu_id, this.usuarioEndereco.rua, this.usuarioEndereco.numero, this.usuarioEndereco.complemento, this.usuarioEndereco.cep]
+
+        await db.query(sqlEndereco, valuesEndereco);
         
         return {"usu_id": usu_id}
+    }
+
+    async findAll()
+    {
+        let sql = `SELECT ul.usu_log_email, usu.*, ue.*, tp.tp.desc AS tipo_usuario FROM usuario 
+        INNER JOIN usuario_endereco AS ue ON ue.usu_id = usu.usu_id
+        INNER JOIN usuario_login AS ul ON ul.usu_id = usu.usu_id
+        LEFT JOIN tp_usu AS tp ON tp.tp_id = usu.tp_id`;
+
+        let result = await db.query(sql);
+        return result.rows;
     }
 
 }
