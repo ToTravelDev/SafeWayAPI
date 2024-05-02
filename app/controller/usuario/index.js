@@ -2,10 +2,11 @@ const BaseController = require("./../BaseController.js");
 const Usuario = require('./../../model/Usuario.js');
 class UsuarioController extends BaseController
 {
-    getIndexUsers()
+    async getIndexUsers()
     {
         const usuario = new Usuario();
-        return usuario.findAll();
+        const result = await usuario.findAll();
+        return result
     }
 
     async setInsertUpdate()
@@ -26,7 +27,7 @@ class UsuarioController extends BaseController
 
             // definindo parametros de endereço
             usuario.usuarioEndereco = {}
-            usuario.usuarioEndereco.cep = this.params.usuarioEndereco.cep
+            usuario.usuarioEndereco.cep = this.params.usuarioEndereco.cep.replace(/\.|-/g, "")
             usuario.usuarioEndereco.rua = this.params.usuarioEndereco.rua
             usuario.usuarioEndereco.numero = this.params.usuarioEndereco.numero
             usuario.usuarioEndereco.complemento = this.params.usuarioEndereco.complemento

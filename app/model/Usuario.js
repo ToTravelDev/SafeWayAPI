@@ -48,6 +48,7 @@ class UsuarioModel
         let valuesLogin = [this.usuarioLogin.usu_email, this.usuarioLogin.usu_senha, '1', usu_id];
         await db.query(sqlLogin, valuesLogin)
 
+        // Inserção de endereço
         let sqlEndereco = `INSERT INTO usuario_endereco
             (usu_id, usu_end_rua, usu_end_numero, usu_end_complemento, usu_end_cep)
             VALUES
@@ -61,10 +62,10 @@ class UsuarioModel
 
     async findAll()
     {
-        let sql = `SELECT ul.usu_log_email, usu.*, ue.*, tp.tp.desc AS tipo_usuario FROM usuario 
-        INNER JOIN usuario_endereco AS ue ON ue.usu_id = usu.usu_id
-        INNER JOIN usuario_login AS ul ON ul.usu_id = usu.usu_id
-        LEFT JOIN tp_usu AS tp ON tp.tp_id = usu.tp_id`;
+        let sql = `SELECT ul.usu_log_email, usu.*, ue.*, tp.tp_desc AS usuario_tipo FROM usuario as usu
+        LEFT JOIN usuario_endereco AS ue ON ue.usu_id = usu.usu_id
+        LEFT JOIN usuario_login AS ul ON ul.usu_id = usu.usu_id
+        LEFT JOIN tipo_usuario AS tp ON tp.tp_id = usu.tp_usu`;
 
         let result = await db.query(sql);
         return result.rows;

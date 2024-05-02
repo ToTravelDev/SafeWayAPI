@@ -5,7 +5,7 @@ module.exports = {
     async index(req, res)
     {
         
-        let result = usuarioController.getIndexUsers();
+        let result = await usuarioController.getIndexUsers();
         res.json(result).status(200);
     },
 
