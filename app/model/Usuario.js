@@ -139,6 +139,18 @@ class UsuarioModel
         }
     }
 
+    async findById(id)
+    {
+        let sql = `SELECT ul.usu_log_email, usu.*, ue.*, tp.tp_desc AS usuario_tipo FROM usuario as usu
+        LEFT JOIN usuario_endereco AS ue ON ue.usu_id = usu.usu_id
+        LEFT JOIN usuario_login AS ul ON ul.usu_id = usu.usu_id
+        LEFT JOIN tipo_usuario AS tp ON tp.tp_id = usu.tp_usu
+        WHERE usu.usu_id = $1`;
+
+        let result = await db.query(sql, [id]);
+        return result.rows[0];
+    }
+
 }
 
 module.exports = UsuarioModel;

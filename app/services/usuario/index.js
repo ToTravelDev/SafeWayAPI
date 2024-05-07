@@ -20,5 +20,23 @@ module.exports = {
             console.error(error)
             res.send('Internal server error').status(500);
         }
+    },
+
+    async findById(req, res)
+    {
+        try{
+            const usuId = req.params.id || undefined;
+            if(typeof(usuId) == 'undefined') {
+                throw 'Id não informado'
+            }
+
+            let response = await usuarioController.getUserById(usuId)
+
+            res.json(usuId).status(200)
+            
+        } catch(err) {
+            console.error(err)
+            res.send(err).status(500)
+        }
     }
 }

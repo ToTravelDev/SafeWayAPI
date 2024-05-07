@@ -9,6 +9,11 @@ class UsuarioController extends BaseController
         return result
     }
 
+    async getUserById(id) {
+        const usuario = new Usuario();
+        return await usuario.findById(id);
+    }
+
     async setInsertUpdate()
     {
         try{
