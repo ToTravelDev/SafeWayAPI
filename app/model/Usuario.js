@@ -67,14 +67,16 @@ class UsuarioModel
 
             const usu_id = result.rows[0].usu_id;
 
-            // inserção de login
-            let sqlLogin = `INSERT INTO usuario_login
-                (usu_log_email, usu_log_senha, usu_log_sso, usu_id) 
-                VALUES
-                ($1, $2, $3, $4)`;
-            
-            let valuesLogin = [this.usuarioLogin.usu_log_email, this.usuarioLogin.usu_log_senha, '1', usu_id];
-            await db.query(sqlLogin, valuesLogin)
+            if(this.usuarioLogin.usu_log_email !== '' && this.usuarioLogin.usu_log_senha !== ''){
+                // inserção de login
+                let sqlLogin = `INSERT INTO usuario_login
+                    (usu_log_email, usu_log_senha, usu_log_sso, usu_id) 
+                    VALUES
+                    ($1, $2, $3, $4)`;
+                
+                let valuesLogin = [this.usuarioLogin.usu_log_email, this.usuarioLogin.usu_log_senha, '1', usu_id];
+                await db.query(sqlLogin, valuesLogin)
+            }
 
             // Inserção de endereço
             let sqlEndereco = `INSERT INTO usuario_endereco
