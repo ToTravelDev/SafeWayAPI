@@ -67,7 +67,7 @@ class UsuarioModel
 
             const usu_id = result.rows[0].usu_id;
 
-            if(this.usuarioLogin.usu_log_email !== '' && this.usuarioLogin.usu_log_senha !== ''){
+            if((typeof(this.usuarioLogin) != 'undefined') && (this.usuarioLogin.usu_log_email !== '' && this.usuarioLogin.usu_log_senha !== '')){
                 // inserção de login
                 let sqlLogin = `INSERT INTO usuario_login
                     (usu_log_email, usu_log_senha, usu_log_sso, usu_id) 
