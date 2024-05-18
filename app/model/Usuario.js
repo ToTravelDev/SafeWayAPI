@@ -67,6 +67,7 @@ class UsuarioModel
 
             const usu_id = result.rows[0].usu_id;
 
+            // => Login é opcional
             if((typeof(this.usuarioLogin) != 'undefined') && (this.usuarioLogin.usu_log_email !== '' && this.usuarioLogin.usu_log_senha !== '')){
                 // inserção de login
                 let sqlLogin = `INSERT INTO usuario_login

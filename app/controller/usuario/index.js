@@ -19,8 +19,8 @@ class UsuarioController extends BaseController
         try{
             let usuario = undefined;
             // caso haja o id do usuário, busca pelo id no sistema
-            if(typeof(this.usu_id) != 'undefined') {
-                usuario = await new Usuario().instanceUsuario(this.usu_id);
+            if(typeof(this.id) != 'undefined') {
+                usuario = await new Usuario().instanceUsuario(this.id);
             } else {
                 usuario = new Usuario();
             }

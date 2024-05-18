@@ -32,7 +32,7 @@ module.exports = {
 
             let response = await usuarioController.getUserById(usuId)
 
-            res.json(usuId).status(200)
+            res.json(response).status(200)
             
         } catch(err) {
             console.error(err)
